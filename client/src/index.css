@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #f5f5dc;
+  position: relative;
+}
+
+.svg-icon {
+  path {
+    fill: transparent;
+    stroke: currentColor;
+  }
+}
+
+:root {
+  --selected-color: #777;
+}
+
+.selected-text {
+  color: var(--selected-color);
+}
+
+.selected-bg {
+  background-color: var(--selected-color);
+}
+
+.selected-border {
+  border-color: var(--selected-color);
+}
+
+.selected-top-border {
+  border-top-color: var(--selected-color);
+}
+
+.selected-bottom-border {
+  border-bottom-color: var(--selected-color);
+}
+
+.hover-selected-text:hover {
+  color: var(--selected-color);
+}
+
+.hover-selected-bg:hover {
+  background-color: var(--selected-color);
+}
+
+.hover-selected-border:hover {
+  border-color: var(--selected-color);
+}
