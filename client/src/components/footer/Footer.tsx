@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { levels, types } from "../../constants/testEnums";
 import { infoLinks } from "../../constants/infoLinks";
+import Divider from "./divider/Divider";
+import Section from "./section/Section";
 
 function Footer() {
   const navigate = useNavigate();
@@ -13,18 +15,12 @@ function Footer() {
   return (
     <div className="bg-[#464E47] py-4 px-4 relative text-white">
       <div
-        className={`grid 
-            grid-rows-[auto_auto_auto_auto_auto_auto_auto]
-            md:h-[400px] md:grid-rows-[1fr_auto_1fr] md:grid-cols-[1fr_auto_1fr_auto_1fr]
-            lg:h-[200px] lg:grid-rows-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]
-            w-full max-w-[1000px] mx-auto`}
+        className="flex justify-around
+            md:h-[350px] flex-col-reverse
+            lg:h-[175px] lg:flex-row
+            w-full max-w-[1000px] mx-auto"
       >
-        <div
-          className={`flex flex-col gap-5 text-center md:text-left
-            order-last md:col-span-6  
-            self-center  
-            lg:order-none lg:col-span-1`}
-        >
+        <div className="min-w-max lg:mr-14 flex flex-col gap-5 text-center lg:text-left lg:self-center">
           <div
             onClick={() => handleNavigate("/")}
             className="text-3xl sm:text-4xl font-bold cursor-pointer text-[#FFF6E8]"
@@ -39,74 +35,33 @@ function Footer() {
           </div>
         </div>
 
-        <div
-          className={`border-[#aaa]
-            order-6 my-8
-            w-full border-t-[1px] md:my-0 md:mt-10 md:col-span-5 
-            lg:h-full lg:border-l-[1px] lg:mx-4 lg:my-0 lg:col-span-1 lg:order-none lg:border-t-0`}
-        />
-
-        <div className="md:mt-8 md:ml-3 text-center md:text-left">
-          <div>Info</div>
-          {infoLinks.map((link) => (
-            <div
-              key={link.path}
-              onClick={() => handleNavigate(link.path)}
-              className="cursor-pointer text-[#aaa] hover:text-[#FFF6E8]"
-            >
-              {link.label}
-            </div>
-          ))}
-        </div>
+        <Divider horizontal={true} />
 
         <div
-          className={`border-[#aaa] my-8
-            w-full border-t-[1px] md:my-0 
-            md:h-full md:border-l-[1px] md:mx-4 md:my-0 md:col-span-1 md:order-none md:border-t-0`}
-        />
-
-        <div className="md:mt-8 md:ml-3 text-center md:text-left">
-          <div>Skills</div>
-          <div>
-            {types.map((type) => (
-              <div
-                key={type.name}
-                onClick={() =>
-                  handleNavigate(
-                    `/tests?level=${type.name.toLocaleLowerCase()}`
-                  )
-                }
-                className="text-[#C8A2C8] cursor-pointer text-[#aaa] hover:text-[#FFF6E8]"
-              >
-                {type.name}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className={`border-[#aaa] my-8
-            w-full border-t-[1px] md:my-0 
-            md:h-full md:border-l-[1px] md:mx-4 md:my-0 md:col-span-1 md:order-none md:border-t-0`}
-        />
-
-        <div className="md:mt-8 md:ml-3 text-center md:text-left">
-          <div>Levels</div>
-          <div>
-            {levels.map((level) => (
-              <div
-                key={level.code}
-                onClick={() =>
-                  handleNavigate(
-                    `/tests?level=${level.code.toLocaleLowerCase()}`
-                  )
-                }
-                className="text-[#C8A2C8] cursor-pointer text-[#aaa] hover:text-[#FFF6E8]"
-              >
-                {level.name}
-              </div>
-            ))}
-          </div>
+          className="flex-col items-center md:flex-row w-full flex justify-around
+          lg:flex-1 lg:justify-end lg:gap-[120px]"
+        >
+          <Section
+            title="Info"
+            items={infoLinks.map((link) => ({ ...link, key: link.path }))}
+            handleClick={(item: any) => handleNavigate(item.path)}
+          />
+          <Divider />
+          <Section
+            title="Skills"
+            items={types.map((type) => ({ ...type, key: type.name }))}
+            handleClick={(item: any) =>
+              handleNavigate(`/tests?level=${item.name.toLocaleLowerCase()}`)
+            }
+          />
+          <Divider />
+          <Section
+            title="Levels"
+            items={levels.map((level) => ({ ...level, key: level.code }))}
+            handleClick={(item: any) =>
+              handleNavigate(`/tests?level=${item.code.toLocaleLowerCase()}`)
+            }
+          />
         </div>
       </div>
     </div>

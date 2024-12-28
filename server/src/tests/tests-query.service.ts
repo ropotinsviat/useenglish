@@ -7,7 +7,7 @@ import { Question } from './entities/question.entity';
 import { Option } from './entities/option.entity';
 
 @Injectable()
-export class TestsService {
+export class TestsQueryService {
   constructor(
     @InjectRepository(Test) private readonly testRepository: Repository<Test>,
     @InjectRepository(Question)
@@ -18,7 +18,7 @@ export class TestsService {
     private readonly mediaRepository: Repository<Media>,
   ) {}
 
-  async getTests(level?: string, type?: string): Promise<Test[]> {
+  async getMany(level?: string, type?: string): Promise<Test[]> {
     const where: any = {};
 
     if (level) where.level = level;
@@ -27,7 +27,7 @@ export class TestsService {
     return await this.testRepository.find({ where });
   }
 
-  async getOneTest(id: number): Promise<Test> {
+  async getOne(id: number): Promise<Test> {
     const test = await this.testRepository.findOne({
       where: { id },
       relations: ['questions', 'questions.options', 'media'],

@@ -1,17 +1,17 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { TestsService } from './tests.service';
+import { TestsQueryService } from './tests-query.service';
 
 @Controller('tests')
 export class TestsController {
-  constructor(private readonly testsService: TestsService) {}
+  constructor(private readonly testsQueryService: TestsQueryService) {}
 
   @Get()
-  async getTests(@Query('level') level?: string, @Query('type') type?: string) {
-    return await this.testsService.getTests(level, type);
+  async getMany(@Query('level') level?: string, @Query('type') type?: string) {
+    return await this.testsQueryService.getMany(level, type);
   }
 
   @Get(':testId')
-  async getOneTest(@Param('testId') testId: number) {
-    return await this.testsService.getOneTest(testId);
+  async getOne(@Param('testId') testId: number) {
+    return await this.testsQueryService.getOne(testId);
   }
 }
